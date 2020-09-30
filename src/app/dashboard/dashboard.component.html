@@ -1,0 +1,78 @@
+<p-toolbar>
+    <div class="p-toolbar-group-left">
+        <p-button label="Add Trade" icon="pi pi-plus" (click)="displaySidebar()"></p-button>
+
+
+    </div>
+
+    <div class="p-toolbar-group-right">
+        <!--p-splitButton label="Market Watch" icon="pi pi-check" [model]="items" styleClass="p-button-warning"
+            (onDropdownClick)="dropdownChosen($event)" (onClick)="dropdownChosen($event)"></p-splitButton-->
+        <div class="dropdown">
+            <p-button class="dropbtn">Dropdown</p-button>
+            <div class="dropdown-content">
+                <a [routerLink]="['/marketwatch','walmart']">Walmart</a>
+                <a [routerLink]="['/marketwatch','apple']">Apple</a>
+                <a [routerLink]="['/marketwatch','facebook']">Facebook</a>
+                <a [routerLink]="['/marketwatch','master']">Master Graph</a>
+            </div>
+        </div>
+        <p-button label="Trade List" icon="pi pi-table" [routerLink]="['/tradelist']"></p-button>
+        <p-button label="About" icon="pi pi-info"  [routerLink]="['about']"></p-button>
+        <p-button icon="pi pi-home" [routerLink]="['']"></p-button>
+    </div>
+</p-toolbar>
+
+<p-sidebar [(visible)]="display" position="left" [style]="{width:'30em'}" [baseZIndex]="10000">
+    <h1 style="font-weight:normal">Add Trade</h1>
+    <form (ngSubmit)="onSubmit()">
+
+        <div>
+            <label for="securityName" class="align" for="float-input">Company: </label>
+            <p-dropdown [options]="companies" [required]="true"></p-dropdown>
+        </div>
+
+        <div style="margin-top:20px;">
+            <label for="SecurityType" class="align" for="float-input">Security Type: </label>
+            <p-dropdown name="SecurityType" [options]="securityType" [required]="true" [(ngModel)]="FormData.securityId"></p-dropdown>
+        </div>
+
+        <div style="margin-top:20px;">
+            <label class="align" for="Type" style="margin-right:10px;">Trade Type: </label>
+
+            <p-radioButton name="TradeType" value=false [(ngModel)]="FormData.tradeType"></p-radioButton>
+            <label for="tradeTypeBuy">Buy</label>
+
+            <p-radioButton name="TradeType2" value=true [(ngModel)]="FormData.tradeType"></p-radioButton>
+            <label for="tradeTypeSell">Sell</label>
+
+        </div>
+
+        <div class="p-field p-col-12 p-md-4" style="margin-top:20px;">
+            <label for="tradeExecutionTime" class="align" for="icon">Trade Date-Time:</label>
+            <p-calendar [(ngModel)]="FormData.tradeExecutionTime" name="tradeExecutionTime" showSeconds="true" [showIcon]="true" inputId="icon" showTime="true" hourFormat="12" [required]="true" ></p-calendar>
+        </div>
+
+        <div class="p-field p-grid" style="margin-top:20px;">
+            <label class="align" for="Price">Price: </label>
+            <input name="Price" [(ngModel)]="FormData.price" id="float-input" class="p-inputtext-sm" style="margin-left:10px;" type="text" pInputText
+                [required]="true">
+        </div>
+
+        <div class="p-field p-grid" style="margin-top:20px;">
+            <label class="align" for="Quantity">Quantity: </label>
+            <input id="float-input" name="Quantity" [(ngModel)]="FormData.quantity"class="p-inputtext-sm" style="margin-left:10px;" type="text" pInputText
+                [required]="true">
+        </div>
+
+        <div class="p-field p-grid" style="margin-top:20px;">
+            <label class="align" for="BrokerName">Broker Name: </label>
+            <input id="float-input" name="BrokerName" [(ngModel)]="FormData.brokerName"class="p-inputtext-sm" style="margin-left:10px;" type="text" pInputText
+                [required]="true">
+        </div>
+
+
+        <button pButton label="Submit" style="margin-top:20px; margin-left:350px;" type="submit"></button>
+
+    </form>
+</p-sidebar>

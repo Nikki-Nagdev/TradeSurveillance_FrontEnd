@@ -1,0 +1,11 @@
+<p>market-watch works!</p>
+<p>Company: {{ company }}</p>
+<div *ngIf ="company == 'walmart'">Walmart it is!</div>
+<input type="checkbox" [(ngModel)]="isCheckedOne" (change)="checkValue(isCheckedOne?'A':'B')" />
+<!--input type="checkbox" [(ngModel)]="isCheckedTwo" (change)="checkValue(isCheckedTwo?'C':'D')" /-->
+<p-checkbox name="groupname" value="val1" [(ngModel)]="isCheckedTwo" [binary]="true"></p-checkbox>
+<p-checkbox name="groupname" value="val2" [(ngModel)]="isCheckedThree" [binary]="true" (onChange)="trial(isCheckedTwo?'C':'D')"></p-checkbox>
+<p-chart type="line" [data]="data" [hidden]="!isCheckedTwo"></p-chart>
+<p-chart type="line" [data]="data1" [hidden]="!isCheckedThree"></p-chart>
+<button label="Draw Graph" type="button" pButton (click)="update($event)"></button>
+<button label="Draw Graph" type="button" pButton (click)="updateTwo($event)"></button>

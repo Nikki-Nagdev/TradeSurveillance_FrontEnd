@@ -1,0 +1,74 @@
+[
+    {
+        "TradeId": "1",
+        "ExecutionTime": "11:58:20",
+        "Quantity": "900",
+        "Price": "200",
+        "CustomerId": "200",
+        "SecurityType": "1",
+        "Type": "1",
+        "Flag": "FALSE",
+        "BrokerName": "Nikki",
+        "MrktPrice": "200"
+    },
+    {
+        "TradeId": "2",
+        "ExecutionTime": "11:58:22",
+        "Quantity": "1000",
+        "Price": "220",
+        "CustomerId": "1",
+        "SecurityType": "4",
+        "Type": "1",
+        "Flag": "FALSE",
+        "BrokerName": "Samradnyi",
+        "MrktPrice": "220"
+    },
+    {
+        "TradeId": "3",
+        "ExecutionTime": "11:58:24",
+        "Quantity": "900",
+        "Price": "230",
+        "CustomerId": "200",
+        "SecurityType": "1",
+        "Type": "0",
+        "Flag": "FALSE",
+        "BrokerName": "Sonal",
+        "MrktPrice": "230"
+    },
+    {
+        "TradeId": "7",
+        "ExecutionTime": "11:58:32",
+        "Quantity": "500",
+        "Price": "228.57",
+        "CustomerId": "200",
+        "SecurityType": "1",
+        "Type": "0",
+        "Flag": "FALSE",
+        "BrokerName": "Adil",
+        "MrktPrice": "228.57"
+    },
+    {
+        "TradeId": "8",
+        "ExecutionTime": "11:58:34",
+        "Quantity": "800",
+        "Price": "227.80",
+        "CustomerId": "3",
+        "SecurityType": "4",
+        "Type": "0",
+        "Flag": "FALSE",
+        "BrokerName": "Shreyas",
+        "MrktPrice": "227.80"
+    },
+    {
+        "TradeId": "10",
+        "ExecutionTime": "11:58:38",
+        "Quantity": "500",
+        "Price": "227.17",
+        "CustomerId": "200",
+        "SecurityType": "1",
+        "Type": "1",
+        "Flag": "FALSE",
+        "BrokerName": "Samradnyi",
+        "MrktPrice": "227.17"
+    }
+]

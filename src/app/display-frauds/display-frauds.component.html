@@ -1,0 +1,17 @@
+<p-table [columns]="cols" [value]="trades">
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns">
+                {{col.header}}
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-trade let-columns="columns">
+        <tr>
+            <td *ngFor="let col of columns">
+                    {{trade[col.field]}}
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+<p>display-frauds works!</p>
