@@ -1,4 +1,5 @@
-<p-table [columns]="cols" [value]="trades">
+<app-dashboard></app-dashboard>
+<p-table id= "frauds" [columns]="cols" [value]="trades">
     <ng-template pTemplate="header" let-columns>
         <tr>
             <th *ngFor="let col of columns">
@@ -14,4 +15,5 @@
         </tr>
     </ng-template>
 </p-table>
-<p>display-frauds works!</p>
+<p-button label="Download" style="cursor: pointer" (click)="exportexcel()"></p-button>
+<!--a href="F:\Angular Workspace\TradeSurveillance\src\assets\download.jpg" download>File Download</a-->

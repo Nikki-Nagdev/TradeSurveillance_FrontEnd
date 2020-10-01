@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TradeService } from '../service/trade.service';
 import { Trade } from '../domain/Trade';
 import { NGXLogger } from 'ngx-logger'
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-display-frauds',
@@ -10,6 +11,7 @@ import { NGXLogger } from 'ngx-logger'
 })
 export class DisplayFraudsComponent implements OnInit {
 
+  fileName= 'Identified Frauds.xlsx'
   trades: Trade[];
   cols : any[];
   constructor(private tradeService: TradeService, private logger : NGXLogger) { }
@@ -37,4 +39,20 @@ export class DisplayFraudsComponent implements OnInit {
     });
   }
 
+  exportexcel(): void 
+    {
+       /* table id is passed over here */   
+       let element = document.getElementById('frauds'); 
+       const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
+
+       /* generate workbook and add the worksheet */
+       const wb: XLSX.WorkBook = XLSX.utils.book_new();
+       XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+       /* save to file */
+       XLSX.writeFile(wb, this.fileName);
+			
+    }
+
 }
+

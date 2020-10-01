@@ -15,25 +15,18 @@ export class TradeListComponent implements OnInit {
   constructor(private tradeService: TradeService, private logger : NGXLogger) { }
 
   ngOnInit(): void {
-    this.tradeService.getTrades().subscribe((res: Trade[]) => {
-
-      this.trades = res;
-      this.logger.debug(res);
-      
-      
-    });
+    this.trades = this.tradeService.getTrades();
 
     this.cols=[
-      {field : 'TradeId' ,header : 'TradeId'},
-      {field : 'ExecutionTime' ,header : 'ExecutionTime'},
-      {field : 'Quantity' ,header : 'Quantity'},
-      {field : 'Price' ,header : 'Price'},
-      {field : 'CustomerId' ,header : 'CustomerId'},
-      {field : 'SecurityType' ,header : 'SecurityType'},
-      {field : 'Type' ,header : 'Type'},
-    //  {field : 'Flag' ,header : 'Flag'},
+      {field : 'tradeId' ,header : 'TradeId'},
+      {field : 'tradeExecutionTime' ,header : 'ExecutionTime'},
+      {field : 'quantity' ,header : 'Quantity'},
+      {field : 'price' ,header : 'Price'},
+      {field : 'customer' ,header : 'Customer'},
+      {field : 'security' ,header : 'Security'},
+      {field : 'instrument', header : 'Instrument'},
+      {field : 'tradeType' ,header : 'Type'},
       {field : 'BrokerName' ,header : 'BrokerName'},
-    //  {filed : 'MrktPrice' ,header : 'MrktPrice'}
 
     ];
 

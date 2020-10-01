@@ -5,17 +5,15 @@ import { Router } from '@angular/router';
 import { Trade } from '../domain/Trade';
 import { TradeService } from '../service/trade.service';
 
-
-interface SecurityType {
+//display active menu item
+/*interface SecurityType {
   name: string;
   code: string;
 }
 
 interface Company {
   name: string;
-}
-
-
+}*/
 
 
 @Component({
@@ -28,23 +26,16 @@ export class DashboardComponent implements OnInit {
   FormData:any ={};
   display = false;
 
-  securityType: SelectItem[];
-  companies: SelectItem[];
-
-  securities: SecurityType[];
-
-  selectedCompany: Company;
-
-  selectedSecurity: SecurityType;
-
+  instrument: SelectItem[];
+  securities: SelectItem[];
+  customers: SelectItem[];
   items: MenuItem[];
-  activeItem: MenuItem;
 
   
 
 
   constructor(router : Router, private tradeService: TradeService) {
-    this.securityType = [
+    this.instrument = [
       { label: 'Select Security Type', value: null },
       { label: 'Equity Shares', value:1 },
       { label: 'Futures', value: 2},
@@ -52,12 +43,20 @@ export class DashboardComponent implements OnInit {
       { label: 'Put Option', value: 4 }
     ];
 
-    this.companies = [
+    this.securities = [
       {label:'Select Company', value:null},
-      {label:'Amazon', value:1},
-      {label:'Walmart', value:2},
-      {label:'Apple', value:3}
+      {label:'Facebook', value:'Facebook'},
+      {label:'Walmart', value:'Walmart'},
+      {label:'Apple', value:'Apple'}
     ];
+
+    this.customers =[
+      {label:'Select Trader' , value:null},
+      {label:'Customer 1',value:'Customer 1'},
+      {label: 'Customer 2' ,value : 'Customer 2'},
+      {label : 'Customer 3',value : 'Customer 3'},
+      {label : 'Citi' , value : 'Citi'}
+    ]
   }
 
   ngOnInit(): void {
@@ -68,21 +67,29 @@ export class DashboardComponent implements OnInit {
       { label: 'Master Graph', icon: 'pi pi-fw pi-chart-line' },
     ];
 
-    this.activeItem = this.items[0];
 
   }
+
+  formatDate(date) {
+
+    var year = date.getFullYear().toString();
+    var month = (date.getMonth() + 101).toString().substring(1);
+    var day = (date.getDate() + 100).toString().substring(1);
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var seconds = date.getSeconds();
+    return year + "-" + month + "-" + day+ ' ' +hours + ":" + minutes + ":" + seconds;
+}
 
   onSubmit() {
     console.log("Submit Called");
     this.display = false;
-    this.FormData.customerId=1;
-    this.FormData.marketPrice=20;
-    //console.log(this.FormData.tradeExecutionTime.toISOString());
-    this.FormData.tradeExecutionTime = this.FormData.tradeExecutionTime.toISOString(); 
-    console.log(this.FormData);
+    this.FormData.tradeExecutionTime = this.formatDate(this.FormData.tradeExecutionTime);
+
+    console.log("FormData :"+this.FormData);
     this.tradeService.addTrade(this.FormData);
 
-
+    this.FormData={};
 
   
   }
@@ -91,11 +98,6 @@ export class DashboardComponent implements OnInit {
     this.display = true;
   }
 
-  dropdownChosen($event){
-  
-    console.log("Dropdown chosen");
-
-  }
 
 
 
