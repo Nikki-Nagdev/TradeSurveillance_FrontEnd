@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
+import {ResponseObject} from './TradeInterface'
 import { Trade } from '../domain/Trade';
+
 
 @Injectable({
   providedIn: 'root'
@@ -11,12 +12,11 @@ export class TradeService {
   data : any;
   trades:Trade[];
   constructor(private http: HttpClient) { }
-
   getTrades() {
     
-    this.http.get('http://localhost:8083/trades'/*'assets/table-data.json'*/)
+    return this.http.get('http://localhost:8082/trades'/*'assets/table-data.json'*/)/*
     .subscribe((res: Trade[]) => {
-
+      
       res.map( (trade :Trade)=>{
         switch(trade.customerId){
           case 1:
@@ -66,20 +66,26 @@ export class TradeService {
           trade.tradeType = 'Sell';
         }
 
-      }) 
+      })
+      console.log(res);
+      this.trades = res;
       
-      this.trades=res;
       
     },err=>{
+      console.log("An error occurred in getting trades");
       console.log(err);
-    });
-    return this.trades;
+    });*/
+   // return this.trades;
   }
 
   getFrauds() {
     return this.http.get('assets/fraud-data.json');
   }
+/* */
+      
 
+
+      
   addTrade(trade:Trade){
     switch(trade.customerId){
       case 'Customer 1':
@@ -131,7 +137,7 @@ export class TradeService {
 
     console.log("Trade :"+trade);
 
-    this.http.post('http://localhost:8083/trades/add',trade)
+    this.http.post('http://localhost:8082/trades/add',trade)
     .subscribe(data =>{
       console.log(data);
     },err => {
