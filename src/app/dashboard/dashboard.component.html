@@ -22,7 +22,7 @@
 
 <p-sidebar [(visible)]="display" position="left" [style]="{width:'30em'}" [baseZIndex]="10000">
     <h1 style="font-weight:normal">Add Trade</h1>
-    <form (ngSubmit)="onSubmit()">
+    <form (ngSubmit)="onSubmit(addForm)" #addForm="ngForm" ngNativeValidate>
 
         <div>
             <label for="security" class="align" for="float-input">Company: </label>

@@ -34,6 +34,7 @@ export class MarketWatchComponent implements OnInit {
   data;
   data1;
   trades: any[];
+  filteredlist :any[];
   constructor(private route: ActivatedRoute, private tradeService: TradeService, private logger: NGXLogger) { }
 
 
@@ -94,19 +95,19 @@ export class MarketWatchComponent implements OnInit {
         trade.tradeType = 'Sell';
       }
 
-      console.log("Object :");
-      console.log(trade);
-
     })
     console.log(res);
     this.trades = res;
     
-    
+
   },err=>{
     console.log("An error occurred in getting trades");
     console.log(err);
   });
-    this.trades = this.trades.filter(obj=>obj.securityId==this.company);
+
+    //this.trades = this.trades.filter(obj=>obj.securityId==this.company);
+    console.log("Trrades in market-watch 2");
+    console.log(this.trades)
   }
 
   updateTwo(event: Event) {
@@ -134,53 +135,16 @@ export class MarketWatchComponent implements OnInit {
 
   updateGraph() {
     this.data={
-      labels: this.trades.map(trades => trades.ExecutionTime),
+      labels: this.trades.map(trades => trades.tradeExecutionTime),
       datasets : []
     };
-    /*if (this.esCustomerBuy) {
-      this.obj = {
-        label: 'ES Customer Buy',
-        data: this.trades.map(trades => {
-          console.log(trades.Type);
-          if (trades.customerId!=200 && trades.Type == 0) { return trades.Quantity }
-          else { return 0 }
-        }),
-        borderColor : "#12ABAB"
-      }
-      this.data.datasets.push(this.obj);
-    }
-    if(this.esCustomerSell){
-      this.obj = {
-        label: 'ES Customer Buy',
-        data: this.trades.map(trades => {
-          console.log(trades.Type);
-          if (trades.customerId!=200 && trades.Type == 1) { return trades.Quantity }
-          else { return 0 }
-        }),
-        borderColor : "#085303"
-      }
-      this.data.datasets.push(this.obj);
 
-    }
-    if(this.esFirmBuy){
-      this.obj = {
-        label: 'ES Firm Buy',
-        data: this.trades.map(trades => {
-          console.log(trades.Type);
-          if (trades.customerId!=200 && trades.Type == 1) { return trades.Quantity }
-          else { return 0 }
-        }),
-        borderColor : "#085353"
-      }
-      this.data.datasets.push(this.obj);
-
-    }*/
     if (this.esCustomerBuy) {
       this.obj = {
         label: 'ES Customer Buy',
         data: this.trades.map(trades => {
           console.log(trades.Type);
-          if (trades.customerId!=200 && trades.tradeType == 0 && trades.security == 'Equity Shares') { return trades.Quantity }
+          if (trades.securityId.toLowerCase() == this.company && trades.customerId!=200 && trades.tradeType == 'Buy' && trades.security == 'Equity Shares') { return trades.quantity }
           else { return 0 }
         }),
         borderColor : "#12ABAB"
@@ -193,7 +157,7 @@ if (this.esCustomerSell) {
         label: 'ES Customer Sell',
         data: this.trades.map(trades => {
           console.log(trades.Type);
-          if (trades.customerId!=200 && trades.tradeType == 1 && trades.security == 'Equity Shares') { return trades.Quantity }
+          if (trades.securityId.toLowerCase() == this.company && trades.customerId!=200 && trades.tradeType == 'Sell' && trades.security == 'Equity Shares') { return trades.quantity }
           else { return 0 }
         }),
         borderColor : "#8E44AD"
@@ -206,7 +170,7 @@ if (this.esFirmBuy) {
         label: 'ES Firm Buy',
         data: this.trades.map(trades => {
           console.log(trades.Type);
-          if (trades.customerId==200 && trades.tradeType == 0 && trades.security == 'Equity Shares') { return trades.Quantity }
+          if (trades.securityId.toLowerCase() == this.company && trades.customerId==200 && trades.tradeType == 'Buy' && trades.security == 'Equity Shares') { return trades.quantity }
           else { return 0 }
         }),
         borderColor : "#E74C3C"
@@ -219,7 +183,7 @@ if (this.esFirmSell) {
         label: 'ES Firm Sell',
         data: this.trades.map(trades => {
           console.log(trades.Type);
-          if (trades.customerId==200 && trades.tradeType == 1 && trades.security == 'Equity Shares') { return trades.Quantity }
+          if (trades.securityId.toLowerCase() == this.company && trades.customerId==200 && trades.tradeType == 'Sell' && trades.security == 'Equity Shares') { return trades.quantity }
           else { return 0 }
         }),
         borderColor : "#2E86C1"
@@ -232,7 +196,7 @@ if (this.futuresCustomerBuy) {
         label: 'Futures Customer Buy',
         data: this.trades.map(trades => {
           console.log(trades.Type);
-          if (trades.customerId!=200 && trades.tradeType == 0 && trades.security == 'Futures') { return trades.Quantity }
+          if (trades.securityId.toLowerCase() == this.company && trades.customerId!=200 && trades.tradeType == 'Buy' && trades.security == 'Futures') { return trades.quantity }
           else { return 0 }
         }),
         borderColor : "#1E8449"
@@ -245,7 +209,7 @@ if (this.futuresCustomerSell) {
         label: 'Futures Customer Sell',
         data: this.trades.map(trades => {
           console.log(trades.Type);
-          if (trades.customerId!=200 && trades.tradeType == 1 && trades.security == 'Futures') { return trades.Quantity }
+          if (trades.securityId.toLowerCase() == this.company && trades.customerId!=200 && trades.tradeType == 'Sell' && trades.security == 'Futures') { return trades.quantity }
           else { return 0 }
         }),
         borderColor : "#D35400"
@@ -258,7 +222,7 @@ if (this.futuresFirmBuy) {
         label: 'Futures Firm Buy',
         data: this.trades.map(trades => {
           console.log(trades.Type);
-          if (trades.customerId==200 && trades.tradeType == 0 && trades.security == 'Futures') { return trades.Quantity }
+          if (trades.securityId.toLowerCase() == this.company && trades.customerId==200 && trades.tradeType == 'Buy' && trades.security == 'Futures') { return trades.quantity }
           else { return 0 }
         }),
         borderColor : "#979A9A"
@@ -271,7 +235,7 @@ if (this.futuresFirmSell) {
         label: 'Futures Firm Sell',
         data: this.trades.map(trades => {
           console.log(trades.Type);
-          if (trades.customerId==200 && trades.tradeType == 1 && trades.security == 'Futures') { return trades.Quantity }
+          if (trades.securityId.toLowerCase() == this.company && trades.customerId==200 && trades.tradeType == 'Sell' && trades.security == 'Futures') { return trades.quantity }
           else { return 0 }
         }),
         borderColor : "#FFA07A"
@@ -284,7 +248,7 @@ if (this.coCustomerBuy) {
         label: 'Call Option Customer Buy',
         data: this.trades.map(trades => {
           console.log(trades.Type);
-          if (trades.customerId!=200 && trades.tradeType == 0 && trades.security == 'Call Option') { return trades.Quantity }
+          if (trades.securityId.toLowerCase() == this.company && trades.customerId!=200 && trades.tradeType == 'Buy' && trades.security == 'Call Option') { return trades.quantity }
           else { return 0 }
         }),
         borderColor : "#00FF00"
@@ -297,7 +261,7 @@ if (this.coCustomerSell) {
         label: 'Call Option Customer Sell',
         data: this.trades.map(trades => {
           console.log(trades.Type);
-          if (trades.customerId!=200 && trades.tradeType == 1 && trades.security == 'Call Option') { return trades.Quantity }
+          if (trades.securityId.toLowerCase() == this.company && trades.customerId!=200 && trades.tradeType == 'Sell' && trades.security == 'Call Option') { return trades.quantity }
           else { return 0 }
         }),
         borderColor : "#560AAD"
@@ -310,7 +274,7 @@ if (this.coFirmBuy) {
         label: 'Call Option Firm Buy',
         data: this.trades.map(trades => {
           console.log(trades.Type);
-          if (trades.customerId==200 && trades.tradeType == 0 && trades.security == 'Call Option') { return trades.Quantity }
+          if (trades.securityId.toLowerCase() == this.company && trades.customerId==200 && trades.tradeType == 'Buy' && trades.security == 'Call Option') { return trades.quantity }
           else { return 0 }
         }),
         borderColor : "#A8A80C"
@@ -323,7 +287,7 @@ if (this.coFirmSell) {
         label: 'Call Option Firm Sell',
         data: this.trades.map(trades => {
           console.log(trades.Type);
-          if (trades.customerId==200 && trades.tradeType == 1 && trades.security == 'Call Option') { return trades.Quantity }
+          if (trades.securityId.toLowerCase() == this.company && trades.customerId==200 && trades.tradeType == 'Sell' && trades.security == 'Call Option') { return trades.quantity }
           else { return 0 }
         }),
         borderColor : "#40CC08"
@@ -336,7 +300,7 @@ if (this.poCustomerBuy) {
         label: 'Put Option Customer Buy',
         data: this.trades.map(trades => {
           console.log(trades.Type);
-          if (trades.customerId!=200 && trades.tradeType == 0 && trades.security == 'Put Option') { return trades.Quantity }
+          if (trades.securityId.toLowerCase() == this.company && trades.customerId!=200 && trades.tradeType == 'Buy' && trades.security == 'Put Option') { return trades.quantity }
           else { return 0 }
         }),
         borderColor : "#FFA07A"
@@ -349,7 +313,7 @@ if (this.poCustomerSell) {
         label: 'Put Option Customer Sell',
         data: this.trades.map(trades => {
           console.log(trades.Type);
-          if (trades.customerId!=200 && trades.tradeType == 1 && trades.security == 'Put Option') { return trades.Quantity }
+          if (trades.securityId.toLowerCase() == this.company && trades.customerId!=200 && trades.tradeType == 'Sell' && trades.security == 'Put Option') { return trades.quantity }
           else { return 0 }
         }),
         borderColor : "#0BB97A"
@@ -362,7 +326,7 @@ if (this.poFirmBuy) {
         label: 'Put Option Firm Buy',
         data: this.trades.map(trades => {
           console.log(trades.Type);
-          if (trades.customerId==200 && trades.tradeType == 0 && trades.security == 'Put Option') { return trades.Quantity }
+          if (trades.securityId.toLowerCase() == this.company && trades.customerId==200 && trades.tradeType == 'Buy' && trades.security == 'Put Option') { return trades.quantity }
           else { return 0 }
         }),
         borderColor : "#B90B33"
@@ -375,7 +339,7 @@ if (this.poFirmSell) {
         label: 'Put Option Firm Sell',
         data: this.trades.map(trades => {
           console.log(trades.Type);
-          if (trades.customerId==200 && trades.tradeType == 1 && trades.security == 'Put Option') { return trades.Quantity }
+          if (trades.securityId.toLowerCase() == this.company && trades.customerId==200 && trades.tradeType == 'Sell' && trades.security == 'Put Option') { return trades.quantity }
           else { return 0 }
         }),
         borderColor : "#F444B1"

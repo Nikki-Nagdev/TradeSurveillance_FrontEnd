@@ -4,6 +4,7 @@ import { SelectItem } from 'primeng/api';
 import { Router } from '@angular/router';
 import { Trade } from '../domain/Trade';
 import { TradeService } from '../service/trade.service';
+import { NgForm } from '@angular/forms';
 
 //display active menu item
 /*interface SecurityType {
@@ -81,15 +82,14 @@ export class DashboardComponent implements OnInit {
     return year + "-" + month + "-" + day+ ' ' +hours + ":" + minutes + ":" + seconds;
 }
 
-  onSubmit() {
+  onSubmit(addForm : NgForm) {
     console.log("Submit Called");
-    this.display = false;
+    //this.display = false;
     this.FormData.tradeExecutionTime = this.formatDate(this.FormData.tradeExecutionTime);
 
     console.log("FormData :"+this.FormData);
     this.tradeService.addTrade(this.FormData);
-
-    this.FormData={};
+    addForm.reset();
 
   
   }

@@ -66,8 +66,7 @@ export class TradeListComponent implements OnInit {
           trade.tradeType = 'Sell';
         }
 
-        console.log("Object :");
-        console.log(trade);
+
 
       })
       console.log(res);
