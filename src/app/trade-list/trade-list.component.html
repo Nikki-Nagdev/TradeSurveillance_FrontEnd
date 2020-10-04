@@ -1,19 +1,37 @@
 <app-dashboard></app-dashboard>
-<p-table [columns]="cols" [value]="trades">
-    <ng-template pTemplate="header" let-columns>
-        <tr>
-            <th *ngFor="let col of columns">
-                {{col.header}}
-            </th>
-        </tr>
+<p-progressSpinner [hidden]="trades"></p-progressSpinner>
+<p-card [hidden]="!trades" header="Trade list :">
+    <p-table  [paginator]="true" [rows]="10" [showCurrentPageReport]="true" 
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[5,10,15,20]" [columns]="cols" [value]="trades" styleClass="p-datatable-lg">
+    <ng-template pTemplate="caption">
+        <div class="p-d-flex">
+            <p-button class= "detect" [hidden]="!trades"  [routerLink]="['/frauds']">Detect Front Running</p-button>
+            <p-button class= "detect" [hidden]="!trades"  [routerLink]="['/wash trades']">Detect Wash Trades</p-button>
+        </div>
     </ng-template>
-    <ng-template pTemplate="body" let-trade let-columns="columns">
-        <tr>
-            <td *ngFor="let col of columns">
+        <ng-template pTemplate="header">
+            <tr class="header" style="font-size: 1.15rem;">
+                <th pSortableColumn="tradeID">TradeID <p-sortIcon field="tradeID"></p-sortIcon></th>
+                <th pSortableColumn="tradeExecutionTime">Execution Time <p-sortIcon field="tradeExecutionTIme"></p-sortIcon></th>
+                <th pSortableColumn="quantity">Quantity <p-sortIcon field="quantity"></p-sortIcon></th>
+                <th pSortableColumn="price">Price<p-sortIcon field="price"></p-sortIcon></th>
+                <th pSortableColumn="customerId">Customer <p-sortIcon field="customerId"></p-sortIcon></th>
+                <th pSortableColumn="security">Instrument <p-sortIcon field="security"></p-sortIcon></th>
+                <th pSortableColumn="securityId">Security <p-sortIcon field="securityId"></p-sortIcon></th>
+                <th pSortableColumn="tradeType">Trade Type<p-sortIcon field="tradeType"></p-sortIcon></th>
+                <th pSortableColumn="brokerName">Broker Name<p-sortIcon field="brokerName"></p-sortIcon></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-trade let-columns="columns">
+            <tr>
+                <td *ngFor="let col of columns">
                     {{trade[col.field]}}
-            </td>
-        </tr>
-    </ng-template>
-</p-table>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
 
-<p-button [routerLink]="['/frauds']">Detect</p-button>
+    
+
+</p-card>
+    

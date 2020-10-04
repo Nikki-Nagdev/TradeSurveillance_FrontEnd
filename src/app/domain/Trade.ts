@@ -1,14 +1,14 @@
 export interface Trade {
-    tradeId?: number;
-    price: number;
-    quantity: number;
+    tradeId?: any;
+    price: any;
+    quantity: any;
     tradeType: any;
     security: any;
     securityId: any;
     tradeExecutionTime: any;
     brokerName?: string;
     customerId: any;
-    marketPrice?: number;
-    isChecked?:boolean;
+    marketPrice?: any;
+    isChecked?:any;
 }
 

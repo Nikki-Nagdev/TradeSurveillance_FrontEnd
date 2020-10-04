@@ -1,4 +1,4 @@
-<p-toolbar>
+<p-toolbar styleClass="toolbar">
     <div class="p-toolbar-group-left">
         <p-button label="Add Trade" icon="pi pi-plus" (click)="displaySidebar()"></p-button>
 
@@ -7,67 +7,72 @@
 
     <div class="p-toolbar-group-right">
         <div class="dropdown">
-            <p-button class="dropbtn">Market Watch</p-button>
+            <p-button  class="p-mr-2 dropbtn">Market Watch</p-button>
             <div class="dropdown-content">
-                <a [routerLink]="['/marketwatch','walmart']">Walmart</a>
-                <a [routerLink]="['/marketwatch','apple']">Apple</a>
-                <a [routerLink]="['/marketwatch','facebook']">Facebook</a>
+                <a [routerLink]="['/marketwatch','baker co.']">Baker Co.</a>
+                <a [routerLink]="['/marketwatch','conan & doyle trades']">Conan & Doyle Trades</a>
+                <a [routerLink]="['/marketwatch','the reichenbach company']">The Reichenbach Company</a>
             </div>
         </div>
-        <p-button label="Trade List" icon="pi pi-table" [routerLink]="['/tradelist']"></p-button>
-        <p-button label="About" icon="pi pi-info"  [routerLink]="['/about']"></p-button>
-        <p-button icon="pi pi-home" [routerLink]="['']"></p-button>
+        <p-button class="p-ml-2" label="Trade List" icon="pi pi-table" [routerLink]="['/tradelist']"></p-button>
+        <p-button class="p-ml-2" icon="pi pi-home" [routerLink]="['']"></p-button>
     </div>
 </p-toolbar>
 
-<p-sidebar [(visible)]="display" position="left" [style]="{width:'30em'}" [baseZIndex]="10000">
+<p-sidebar class = "sidebar" [(visible)]="display" position="left" [style]="{width:'30em'}" [baseZIndex]="10000">
     <h1 style="font-weight:normal">Add Trade</h1>
     <form (ngSubmit)="onSubmit(addForm)" #addForm="ngForm" ngNativeValidate>
 
-        <div>
-            <label for="security" class="align" for="float-input">Company: </label>
-            <p-dropdown name="security" [options]="securities" [required]="true" [(ngModel)]="FormData.securityId"></p-dropdown>
+        <div style="margin-top:30px;">
+            <label style="margin-right:2px;" for="security" class="align" for="float-input">Company: </label>
+            <p-dropdown name="security" placeholder = "Select Security" [options]="securities" [required]="true" [(ngModel)]="FormData.securityId"></p-dropdown>
         </div>
 
-        <div style="margin-top:20px;">
-            <label for="securityId" class="align" for="float-input">Security Type: </label>
+        <div style="margin-top:30px;">
+            <label style="margin-right:2px;" for="securityId" class="align" for="float-input">Security Type: </label>
             <p-dropdown name="securityId" [options]="instrument" [required]="true" [(ngModel)]="FormData.security"></p-dropdown>
         </div>
 
-        <div style="margin-top:20px;">
-            <label for="customer" class="align" for="float-input">Trader: </label>
+        <div style="margin-top:30px;">
+            <label style="margin-right:2px;" for="customer" class="align" for="float-input">Trader: </label>
             <p-dropdown name="customer" [options]="customers" [required]="true" [(ngModel)]="FormData.customerId"></p-dropdown>
         </div>
 
-        <div style="margin-top:20px;">
-            <label class="align" for="Type" style="margin-right:10px;">Trade Type: </label>
+        <div style="margin-top:30px;">
+            <label style="margin-right:2px;" class="align" for="Type" style="margin-right:10px;">Trade Type: </label>
 
-            <p-radioButton name="TradeType" value="Buy" [(ngModel)]="FormData.tradeType"></p-radioButton>
-            <label for="tradeTypeBuy">Buy</label>
+            <p-radioButton class="radiobutton" name="TradeType" value="Buy" [(ngModel)]="FormData.tradeType"></p-radioButton>
+            <label for="tradeTypeBuy"style="margin-right:10px;">Buy</label>
 
-            <p-radioButton name="TradeType2" value="Sell" [(ngModel)]="FormData.tradeType"></p-radioButton>
+            <p-radioButton name="TradeType2" style="margin-right:2px;" value="Sell" [(ngModel)]="FormData.tradeType"></p-radioButton>
             <label for="tradeTypeSell">Sell</label>
 
         </div>
 
-        <div class="p-field p-col-12 p-md-4" style="margin-top:20px;">
-            <label for="tradeExecutionTime" class="align" for="icon">Trade Date-Time:</label>
-            <p-calendar placeholder="--:--:--" [showIcon]="true" icon="pi-table" timeOnly=true [(ngModel)]="FormData.tradeExecutionTime" name="tradeExecutionTime" showSeconds="true" showTime="true" hourFormat="12" [required]="true" ></p-calendar>
+        <div class="calendar p-field p-col-12 p-md-4" style="margin-top:30px;">
+            <label style="margin-right:2px;" for="tradeExecutionTime" class="align" for="icon">Trade Time:</label>
+            <p-calendar class="timePickerButton" placeholder="--:--:--" [showIcon]="true" icon="pi pi-clock"timeOnly=true [(ngModel)]="FormData.tradeExecutionTime" name="tradeExecutionTime" showSeconds="true" showTime="true" hourFormat="12" [required]="true" ></p-calendar>
         </div>
 
-        <div class="p-field p-grid" style="margin-top:20px;">
-            <label class="align" for="Price">Price: </label>
-            <input name="Price" [(ngModel)]="FormData.price" id="float-input" class="p-inputtext-sm" style="margin-left:10px;" type="text" pInputText
+        <div class="p-field p-grid" style="margin-top:30px;">
+            <label style="margin-right:2px;" class="align" for="Price">Price: </label>
+            <input class="input" name="Price" [(ngModel)]="FormData.price" id="float-input" class="p-inputtext-sm" style="margin-left:10px;" type="text" pInputText
                 [required]="true">
         </div>
 
-        <div class="p-field p-grid" style="margin-top:20px;">
-            <label class="align" for="Quantity">Quantity: </label>
-            <input id="float-input" name="Quantity" [(ngModel)]="FormData.quantity"class="p-inputtext-sm" style="margin-left:10px;" type="text" pInputText
+
+        <div class="p-field p-grid" style="margin-top:30px;">
+            <label style="margin-right:2px;" class="align" for="Quantity">Quantity: </label>
+            <input style="margin-left:12px;" class="input" id="float-input" name="Quantity" [(ngModel)]="FormData.quantity"class="p-inputtext-sm" style="margin-left:10px;" type="text" pInputText
                 [required]="true">
         </div>
 
-        <button pButton label="Submit" style="margin-top:20px; margin-left:350px;" type="submit"></button>
+        <div style="margin-top:30px;">
+            <label style="margin-right:2px;" for="brokerName" class="align" for="float-input">Broker Name: </label>
+            <p-dropdown name="brokerName" [options]="brokers" [required]="true" [(ngModel)]="FormData.brokerName"></p-dropdown>
+        </div>
+
+        <button class="submitButton" pButton label="Submit" style="margin-top:30px; margin-left:350px;" type="submit"></button>
 
     </form>
 </p-sidebar>

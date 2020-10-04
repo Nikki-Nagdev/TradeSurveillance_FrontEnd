@@ -1,6 +1,17 @@
 <app-dashboard></app-dashboard>
+<tr>
+    Choose broker for detectin wash trades
 
-<p-table #dt id= "frauds" [columns]="cols" [value]="trades">
+<tr>
+<tr>
+
+    <p-button  class="p-mr-2 dropbtn" (onClick)="chooseBroker1()">Irene Adler</p-button>
+    <p-button  class="p-mr-2 dropbtn" (onClick)="chooseBroker2()">Jack Stapleton</p-button>
+    <p-button  class="p-mr-2 dropbtn" (onClick)="chooseBroker3()">Jim Moriarity</p-button>
+
+<tr>
+
+<p-table #dt [hidden] = display id= "frauds" [columns]="cols" [value]="trades">
     <ng-template pTemplate="caption">
         <div class="p-d-flex">
             <button type="button" pButton pRipple icon="pi pi-file-o" (click)="dt.exportCSV()" class="p-mr-2" pTooltip="CSV" tooltipPosition="bottom"></button>
@@ -25,5 +36,3 @@
         </tr>
     </ng-template>
 </p-table>
-<!--p-button label="Download" style="cursor: pointer" (click)="exportexcel()"></p-button-->
-<!--a href="F:\Angular Workspace\TradeSurveillance\src\assets\download.jpg" download>File Download</a-->

@@ -6,17 +6,6 @@ import { Trade } from '../domain/Trade';
 import { TradeService } from '../service/trade.service';
 import { NgForm } from '@angular/forms';
 
-//display active menu item
-/*interface SecurityType {
-  name: string;
-  code: string;
-}
-
-interface Company {
-  name: string;
-}*/
-
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -26,16 +15,18 @@ export class DashboardComponent implements OnInit {
 
   FormData:any ={};
   display = false;
+  spinnerVisible:boolean;
 
   instrument: SelectItem[];
   securities: SelectItem[];
   customers: SelectItem[];
   items: MenuItem[];
-
-  
+  brokers: SelectItem[];
 
 
   constructor(router : Router, private tradeService: TradeService) {
+
+
     this.instrument = [
       { label: 'Select Security Type', value: null },
       { label: 'Equity Shares', value:1 },
@@ -46,27 +37,32 @@ export class DashboardComponent implements OnInit {
 
     this.securities = [
       {label:'Select Company', value:null},
-      {label:'Facebook', value:'Facebook'},
-      {label:'Walmart', value:'Walmart'},
-      {label:'Apple', value:'Apple'}
+      {label:'Baker Co.', value:'Baker Co.'},
+      {label:'Conan & Doyle Trades', value:'Conan & Doyle Trades'},
+      {label:'The Reichenbach Company', value:'The Reichenbach Company'},
+      {label:'Holmes Brothers', value:'Holmes Brothers'}
+
     ];
 
     this.customers =[
       {label:'Select Trader' , value:null},
-      {label:'Customer 1',value:'Customer 1'},
-      {label: 'Customer 2' ,value : 'Customer 2'},
-      {label : 'Customer 3',value : 'Customer 3'},
-      {label : 'Citi' , value : 'Citi'}
+      {label:'Greg Lestrade',value:'Greg Lestrade'},
+      {label: 'John Watson' ,value : 'John Watson'},
+      {label : 'Martha Hudson',value : 'Martha Hudson'},
+      {label : 'Citi Corp' , value : 'Citi Corp'}
+    ]
+
+    this.brokers=[
+      {label:'Select Broker' , value:null},
+      {label:'Irene Adler',value:'Irene Adler'},
+      {label: 'Jack Stapleton' ,value : 'Jack Stapleton'},
+      {label : 'Jim Moriarity',value : 'Jim Moriarity'},
     ]
   }
 
   ngOnInit(): void {
-    this.items = [
-      { label: 'Walmart', icon: 'pi pi-fw pi-chart-line' },
-      { label: 'Facebook', icon: 'pi pi-fw pi-chart-line' },
-      { label: 'Apple', icon: 'pi pi-fw pi-chart-line' },
-      { label: 'Master Graph', icon: 'pi pi-fw pi-chart-line' },
-    ];
+
+
 
 
   }
@@ -76,22 +72,16 @@ export class DashboardComponent implements OnInit {
     var year = date.getFullYear().toString();
     var month = (date.getMonth() + 101).toString().substring(1);
     var day = (date.getDate() + 100).toString().substring(1);
-    var hours = date.getHours();
-    var minutes = date.getMinutes();
+    var hours = date.getHours()+5;
+    var minutes = date.getMinutes()+30;
     var seconds = date.getSeconds();
     return year + "-" + month + "-" + day+ ' ' +hours + ":" + minutes + ":" + seconds;
 }
 
   onSubmit(addForm : NgForm) {
-    console.log("Submit Called");
-    //this.display = false;
     this.FormData.tradeExecutionTime = this.formatDate(this.FormData.tradeExecutionTime);
-
-    console.log("FormData :"+this.FormData);
     this.tradeService.addTrade(this.FormData);
     addForm.reset();
-
-  
   }
 
   displaySidebar() {

@@ -1,47 +1,41 @@
 <app-dashboard></app-dashboard>
-<table width = "100%" border = "0">
-         
-    <tr valign = "top">
-       <td bgcolor = "#eee" width = "100">
-        <tr><label><input type="checkbox" value="" [(ngModel)]="esCustomerBuy"(change)="updateGraph()">Equity Shares: Customer Buy</label></tr>
-        <tr><label><input type="checkbox" value="" [(ngModel)]="esCustomerSell"(change)="updateGraph()">Equity Shares: Customer Sell</label></tr>
-        <tr><label><input type="checkbox" value="" [(ngModel)]="esFirmBuy" (change)="updateGraph()">Equity Shares: Firm Buy</label></tr>
-        <tr><label><input type="checkbox" value="" [(ngModel)]="esFirmSell" (change)="updateGraph()">Equity Shares: Firm Sell</label></tr>
-            
+<table style="margin-left: 14%;" >
+   <tr >
+       <td style="width: 17em;">
+           <p-panel  header="Equity Shares">
+               <tr><label><p-checkbox [binary]="true" value="" [(ngModel)]="esCustomerBuy" (onChange)="updateGraph()"></p-checkbox> Equity Shares: Customer Buy</label></tr>
+               <tr><label><p-checkbox [binary]="true" value="" [(ngModel)]="esCustomerSell" (onChange)="updateGraph()"></p-checkbox> Equity Shares: Customer Sell</label></tr>
+               <tr><label><p-checkbox [binary]="true" value="" [(ngModel)]="esFirmBuy"  (onChange)="updateGraph()"></p-checkbox> Equity Shares: Firm Buy</label></tr>
+               <tr><label><p-checkbox [binary]="true" value="" [(ngModel)]="esFirmSell" (onChange)="updateGraph()"></p-checkbox> Equity Shares: Firm Sell</label></tr>
+           </p-panel>
        </td>
-       
-       <td bgcolor = "#eee" width = "100" height = "100">
-        <tr><label><input type="checkbox" value="" [(ngModel)]="futuresCustomerBuy"(change)="updateGraph()">Futures: Customer Buy</label></tr>
-        <tr><label><input type="checkbox" value="" [(ngModel)]="futuresCustomerSell" (change)="updateGraph()">Futures: Customer Sell</label></tr>
-        <tr><label><input type="checkbox" value="" [(ngModel)]="futuresFirmBuy" (change)="updateGraph()">Futures: Firm Buy</label></tr>
-        <tr><label><input type="checkbox" value="" [(ngModel)]="futuresFirmSell" (change)="updateGraph()">Futures: Firm Sell</label></tr>
-            
-            
+       <td style="width: 17em;">
+           <p-panel header="Futures">
+               <tr><label><p-checkbox [binary]="true" value="" [(ngModel)]="futuresCustomerBuy" (onChange)="updateGraph()"></p-checkbox> Futures: Customer Buy</label></tr>
+               <tr><label><p-checkbox [binary]="true" value="" [(ngModel)]="futuresCustomerSell" (onChange)="updateGraph()"></p-checkbox> Futures: Customer Sell</label></tr>
+               <tr><label><p-checkbox [binary]="true" value="" [(ngModel)]="futuresFirmBuy" (onChange)="updateGraph()"></p-checkbox> Futures: Firm Buy</label></tr>
+               <tr><label><p-checkbox [binary]="true" value="" [(ngModel)]="futuresFirmSell" (onChange)="updateGraph()"></p-checkbox> Futures: Firm Sell</label></tr>
+           </p-panel>           
        </td>
-       <td bgcolor = "#eee" width = "100" height = "100">
-        <tr><label><input type="checkbox" value="" [(ngModel)]="coCustomerBuy" (change)="updateGraph()">Call Option: Customer Buy</label></tr>
-        <tr><label><input type="checkbox" value="" [(ngModel)]="coCustomerSell" (change)="updateGraph()">Call Option: Customer Sell</label></tr>
-        <tr><label><input type="checkbox" value="" [(ngModel)]="coFirmBuy" (change)="updateGraph()">Call Option: Firm Buy</label></tr>
-        <tr><label><input type="checkbox" value="" [(ngModel)]="coFirmSell" (change)="updateGraph()">Call Option: Firm Sell</label></tr>
-            
-            
-     </td>
-     <td bgcolor = "#eee" width = "100" height = "100">
-        <tr><label><input type="checkbox" value="" [(ngModel)]="poCustomerBuy" (change)="updateGraph()">Put Option: Customer Buy</label></tr>
-        <tr><label><input type="checkbox" value="" [(ngModel)]="poCustomerSell" (change)="updateGraph()">Put Option: Customer Sell</label></tr>
-        <tr><label><input type="checkbox" value="" [(ngModel)]="poFirmBuy" (change)="updateGraph()">Put Option: Firm Buy</label></tr>
-        <tr><label><input type="checkbox" value="" [(ngModel)]="poFirmSell" (change)="updateGraph()">Put Option: Firm Sell</label></tr>
-            
-            
-     </td>
-    </tr>
-   
-    
- </table>
- <p-chart type="line" [data]="data"></p-chart>
-<!--p-checkbox name="groupname" value="val1" [(ngModel)]="isCheckedTwo" [binary]="true"></p-checkbox>
-<p-checkbox name="groupname" value="val2" [(ngModel)]="isCheckedThree" [binary]="true" (onChange)="trial(isCheckedTwo?'C':'D')"></p-checkbox>
-<p-chart type="line" [data]="data" [hidden]="!isCheckedTwo"></p-chart>
-<p-chart type="line" [data]="data1" [hidden]="!isCheckedThree"></p-chart>
-<button label="Draw Graph" type="button" pButton (click)="update($event)"></button>
-<button label="Draw Graph" type="button" pButton (click)="updateTwo($event)"></button-->
+       <td style="width: 17em;">
+           <p-panel header="Call Option">
+               <tr><label><p-checkbox [binary]="true" value="" [(ngModel)]="coCustomerBuy" (onChange)="updateGraph()"></p-checkbox> Call Option: Customer Buy</label></tr>
+               <tr><label><p-checkbox [binary]="true" value="" [(ngModel)]="coCustomerSell" (onChange)="updateGraph()"></p-checkbox> Call Option: Customer Sell</label></tr>
+               <tr><label><p-checkbox [binary]="true" value="" [(ngModel)]="coFirmBuy" (onChange)="updateGraph()"></p-checkbox> Call Option: Firm Buy</label></tr>
+               <tr><label><p-checkbox [binary]="true" value="" [(ngModel)]="coFirmSell" (onChange)="updateGraph()"></p-checkbox> Call Option: Firm Sell</label></tr>
+           </p-panel> 
+       </td>
+       <td style="width: 17em;">
+           <p-panel header="Put Option">
+               <tr><label><p-checkbox [binary]="true" value="" [(ngModel)]="poCustomerBuy" (onChange)="updateGraph()"></p-checkbox> Put Option: Customer Buy</label></tr>
+               <tr><label><p-checkbox [binary]="true" value="" [(ngModel)]="poCustomerSell" (onChange)="updateGraph()"></p-checkbox> Put Option: Customer Sell</label></tr>
+               <tr><label><p-checkbox [binary]="true" value="" [(ngModel)]="poFirmBuy" (onChange)="updateGraph()"></p-checkbox> Put Option: Firm Buy</label></tr>
+               <tr><label><p-checkbox [binary]="true" value="" [(ngModel)]="poFirmSell" (onChange)="updateGraph()"></p-checkbox> Put Option: Firm Sell</label></tr>
+           </p-panel>
+       </td>
+   </tr>
+</table>
+
+<div style="margin-top: 5px;">
+    <p-chart class="chart" style="color: black;" height="600px" [data]="data" [options]="options" type="line"></p-chart>
+</div>

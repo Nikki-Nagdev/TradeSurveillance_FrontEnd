@@ -1,6 +1,17 @@
 <div class="background">
-    <p style="color :white">Trade Surveillance</p>
-    <div class="button">
-        <p-button [routerLink]="['dashboard']">Get Started</p-button>
+</div>
+
+<div>
+    <p class = "title" style="font-family:fantasy">Sherlock</p>
+    <div class="startButton" style="margin-left: 46%; margin-top: 2%; font-size: 2rem;" >
+        <p-button (onClick)="generateTrades()" [routerLink] = "['/tradelist']">Get Started</p-button>
     </div>
+</div>
+
+<div>
+    <img class="citiLogo" src ="assets\citiLogoFinal (3).png" />
+</div>
+
+<div>
+    <img class="appLogo" src ="assets\logo.png" />
 </div>

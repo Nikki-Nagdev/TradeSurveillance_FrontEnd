@@ -4,42 +4,121 @@ import { Trade } from '../domain/Trade';
 import { NGXLogger } from 'ngx-logger'
 import * as XLSX from 'xlsx';
 
+
 @Component({
   selector: 'app-display-frauds',
   templateUrl: './display-frauds.component.html',
   styleUrls: ['./display-frauds.component.css']
 })
+
 export class DisplayFraudsComponent implements OnInit {
 
   fileName= 'Identified Frauds.xlsx'
   trades: Trade[];
+  defaultTrade : Trade;
   cols : any[];
   constructor(private tradeService: TradeService, private logger : NGXLogger) { }
-
   ngOnInit(): void {
-    this.tradeService.getFrauds().subscribe((res: Trade[]) => {
 
-      this.trades = res;
-      this.logger.debug(res);
+    this.trades=[];
+    this.defaultTrade={
+      tradeId:'',
+      price:'',
+      quantity: '',
+      tradeType: '',
+      security: '',
+      securityId: '',
+      tradeExecutionTime: '',
+      brokerName: '',
+      customerId: '',
+      marketPrice: ''
+    }
+
+    this.tradeService.getFrauds().subscribe((res: any) => {
+
+      res.map( (trades : Trade[]) => {
+        trades.map((trade :Trade)=>{
+
+          if(!trade.brokerName)
+            trade.brokerName="Irene Adler"
+          switch(trade.customerId){
+            case 1:
+              trade.customerId = 'Greg Lestrade';
+              break;
+            case 2:
+              trade.customerId = 'John Watson';
+              break;
+            case 3:
+              trade.customerId = 'Martha Hudson';
+              break;
+            case 221 :
+              trade.customerId ='Citi Corp';
+          }
       
-      this.cols=[
-        {field : 'TradeId' ,header : 'TradeId'},
-        {field : 'ExecutionTime' ,header : 'ExecutionTime'},
-        {field : 'Quantity' ,header : 'Quantity'},
-        {field : 'Price' ,header : 'Price'},
-        {field : 'CustomerId' ,header : 'CustomerId'},
-        {field : 'SecurityType' ,header : 'SecurityType'},
-        {field : 'Type' ,header : 'Type'},
-      //  {field : 'Flag' ,header : 'Flag'},
-        {field : 'BrokerName' ,header : 'BrokerName'},
-      //  {filed : 'MrktPrice' ,header : 'MrktPrice'}
-
-      ];
-
+          switch(trade.security){
+            case 1:
+              trade.security = 'Equity Shares';
+              break;
+            case 2:
+              trade.security = 'Put Option';
+              break;
+            case 3:
+              trade.security = 'Call Option';
+              break;
+            case  4:
+              trade.security = 'Futures';
+          }
+      
+          switch(trade.securityId){
+            case 1:
+              trade.securityId = 'Baker Co.';
+              break;
+            case 2:
+              trade.securityId = 'Conan & Doyle Trades';
+              break;
+            case 3:
+              trade.securityId = 'The Reichenbach Company';
+              break;
+      
+          }
+  
+          if(trade.tradeType){
+            trade.tradeType = 'Buy';
+          }
+          else{
+            trade.tradeType = 'Sell';
+          }
+          console.log("Pushing following trade");
+          console.log(trade);
+          this.trades.push(trade);
+        })
+        console.log("Pushing default");
+        this.trades.push(this.defaultTrade);
+      })
+      
+      
+    },err=>{
+      console.log("An error occurred in getting trades");
+      console.log(err);
     });
+    console.log("Trades in Trade list component");
+    console.log(this.trades);
+
+    this.cols=[
+      {field : 'tradeId' ,header : 'TradeId'},
+      {field : 'tradeExecutionTime' ,header : 'ExecutionTime'},
+      {field : 'quantity' ,header : 'Quantity'},
+      {field : 'price' ,header : 'Price'},
+      {field : 'customerId' ,header : 'Customer'},
+      {field : 'security' ,header : 'Instrument'},
+      {field : 'securityId', header : 'Security'},
+      {field : 'tradeType' ,header : 'Type'},
+      {field : 'brokerName' ,header : 'BrokerName'},
+
+    ];
   }
 
-  exportexcel(): void 
+  exportExcel(): void 
     {
        /* table id is passed over here */   
        let element = document.getElementById('frauds'); 
@@ -53,6 +132,7 @@ export class DisplayFraudsComponent implements OnInit {
        XLSX.writeFile(wb, this.fileName);
 			
     }
+
 
 }
 

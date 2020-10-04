@@ -15,7 +15,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
 import {CheckboxModule} from 'primeng/checkbox'; 
 import {ChartModule} from 'primeng/chart';
-
+import {CardModule} from 'primeng/card';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
+import {PanelModule} from 'primeng/panel';
+import {GalleriaModule} from 'primeng/galleria';
+import {DialogModule} from 'primeng/dialog';
 
 import { NgModule } from '@angular/core';
 
@@ -25,8 +29,9 @@ import { HomeScreenComponent } from './home-screen/home-screen.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TradeListComponent } from './trade-list/trade-list.component';
 import { DisplayFraudsComponent } from './display-frauds/display-frauds.component';
-import { AboutComponent } from './about/about.component';
 import { MarketWatchComponent } from './market-watch/market-watch.component';
+import { TradeService } from './service/trade.service';
+import { DisplayWashTradesComponent } from './display-wash-trades/display-wash-trades.component';
 
 
 @NgModule({
@@ -36,8 +41,8 @@ import { MarketWatchComponent } from './market-watch/market-watch.component';
     DashboardComponent,
     TradeListComponent,
     DisplayFraudsComponent,
-    AboutComponent,
-    MarketWatchComponent
+    MarketWatchComponent,
+    DisplayWashTradesComponent
   ],
   imports: [
     BrowserModule,
@@ -57,12 +62,19 @@ import { MarketWatchComponent } from './market-watch/market-watch.component';
     HttpClientModule,
     LoggerModule.forRoot({serverLoggingUrl: '/users/logs', level: NgxLoggerLevel.DEBUG, serverLogLevel: NgxLoggerLevel.ERROR}),
     CheckboxModule,
-    ChartModule
+    ChartModule,
+    CardModule,
+    ProgressSpinnerModule,
+    PanelModule,
+    GalleriaModule,
+    DialogModule
+
 
 
 
   ],
   providers: [
+    TradeService
   ],
   bootstrap: [AppComponent]
 })

@@ -35,6 +35,9 @@ export class MarketWatchComponent implements OnInit {
   data1;
   trades: any[];
   filteredlist :any[];
+
+  options;
+
   constructor(private route: ActivatedRoute, private tradeService: TradeService, private logger: NGXLogger) { }
 
 
@@ -43,10 +46,11 @@ export class MarketWatchComponent implements OnInit {
       this.company = params.get('company')
     });
 
-  //  this.trades = this.tradeService.getTrades();
-  this.tradeService.getTrades().subscribe((res: Trade[]) => {
+    this.trades = this.tradeService.getTrades();
+ /* this.tradeService.getTrades().subscribe((res: Trade[]) => {
       
     res.map( (trade :Trade)=>{
+      trade.brokerName = 'b1';
       switch(trade.customerId){
         case 1:
           trade.customerId = 'Customer 1';
@@ -66,23 +70,23 @@ export class MarketWatchComponent implements OnInit {
           trade.security = 'Equity Shares';
           break;
         case 2:
-          trade.security = 'Call Option';
+          trade.security = 'Put Option';
           break;
         case 3:
-          trade.security = 'Put Option';
+          trade.security = 'Call Option';
           break;
         case  4:
           trade.security = 'Futures';
       }
   
       switch(trade.securityId){
-        case 2:
+        case 3:
           trade.securityId = 'Walmart';
           break;
         case 1:
           trade.securityId = 'Apple';
           break;
-        case 3:
+        case 2:
           trade.securityId = 'Facebook';
           break;
   
@@ -95,6 +99,7 @@ export class MarketWatchComponent implements OnInit {
         trade.tradeType = 'Sell';
       }
 
+
     })
     console.log(res);
     this.trades = res;
@@ -103,11 +108,16 @@ export class MarketWatchComponent implements OnInit {
   },err=>{
     console.log("An error occurred in getting trades");
     console.log(err);
-  });
+  });*/
 
     //this.trades = this.trades.filter(obj=>obj.securityId==this.company);
     console.log("Trrades in market-watch 2");
     console.log(this.trades)
+
+    this.options = {
+      responsive: false,
+      maintainAspectRatio: false
+    };
   }
 
   updateTwo(event: Event) {
@@ -349,5 +359,3 @@ if (this.poFirmSell) {
 
   }
 }
-
-

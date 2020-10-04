@@ -2,83 +2,49 @@ import { Component, OnInit } from '@angular/core';
 import { TradeService } from '../service/trade.service';
 import { Trade } from '../domain/Trade';
 import { NGXLogger } from 'ngx-logger'
+import { Table } from 'primeng/table';
+import { ViewChild } from '@angular/core';
+import {timer} from 'rxjs';
+
 
 @Component({
   selector: 'app-trade-list',
   templateUrl: './trade-list.component.html',
   styleUrls: ['./trade-list.component.css']
 })
+
+
+
+
 export class TradeListComponent implements OnInit {
 
+  private display: boolean; // whether to display info in the component
+  // use *ngIf="display" in your html to take
+  // advantage of this
+
+private alive: boolean; 
+
+  static firstTime : boolean;
+  static loading : boolean =true;
   trades: Trade[];
   cols : any[];
-  constructor(private tradeService: TradeService, private logger : NGXLogger) { }
+  @ViewChild('dt') table: Table;
+  constructor(private tradeService: TradeService, private logger : NGXLogger) { 
+    TradeListComponent.firstTime=true;
+    TradeListComponent.loading=true;
 
+  }
   ngOnInit(): void {
-    this.tradeService.getTrades().subscribe((res: Trade[]) => {
-      
-      res.map( (trade :Trade)=>{
-        switch(trade.customerId){
-          case 1:
-            trade.customerId = 'Customer 1';
-            break;
-          case 2:
-            trade.customerId = 'Customer 2';
-            break;
-          case 3:
-            trade.customerId = 'Customer 3';
-            break;
-          case 200 :
-            trade.customerId ='Citi';
-        }
     
-        switch(trade.security){
-          case 1:
-            trade.security = 'Equity Shares';
-            break;
-          case 2:
-            trade.security = 'Call Option';
-            break;
-          case 3:
-            trade.security = 'Put Option';
-            break;
-          case  4:
-            trade.security = 'Futures';
-        }
-    
-        switch(trade.securityId){
-          case 2:
-            trade.securityId = 'Walmart';
-            break;
-          case 1:
-            trade.securityId = 'Apple';
-            break;
-          case 3:
-            trade.securityId = 'Facebook';
-            break;
-    
-        }
+    this.trades = this.tradeService.getTrades();
 
-        if(trade.tradeType){
-          trade.tradeType = 'Buy';
-        }
-        else{
-          trade.tradeType = 'Sell';
-        }
-
-
-
-      })
-      console.log(res);
-      this.trades = res;
+    let myTimer = timer(1000,2000);
+    const subscription = myTimer.subscribe(
+      ()=>{
+        this.trades = this.tradeService.getTrades();
+      }
+    )
       
-      
-    },err=>{
-      console.log("An error occurred in getting trades");
-      console.log(err);
-    });
-    console.log("Trades in Trade list component");
-    console.log(this.trades);
 
     this.cols=[
       {field : 'tradeId' ,header : 'TradeId'},
@@ -86,13 +52,24 @@ export class TradeListComponent implements OnInit {
       {field : 'quantity' ,header : 'Quantity'},
       {field : 'price' ,header : 'Price'},
       {field : 'customerId' ,header : 'Customer'},
-      {field : 'security' ,header : 'Security'},
-      {field : 'securityId', header : 'Instrument'},
+      {field : 'security' ,header : 'Instrument'},
+      {field : 'securityId', header : 'Security'},
       {field : 'tradeType' ,header : 'Type'},
       {field : 'brokerName' ,header : 'BrokerName'},
 
     ];
 
   }
+
+  onActivityChange(event) {
+    const value = event.target.value;
+    if (value && value.trim().length) {
+        const activity = parseInt(value);
+
+        if (!isNaN(activity)) {
+            this.table.filter(activity, 'activity', 'gte');
+        }
+    }
+}
 
 }

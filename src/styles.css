@@ -1,6 +1,5 @@
-@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+/*@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
-// some basic resets 
 
 body { 
   padding: 0px; 
@@ -17,3 +16,18 @@ body {
 .toolbar-flex {
   flex: 1 0.3 auto;
 }
+*/
+
+html {
+  min-height: 100vh;
+  margin: 0px;
+  font-family: fantasy;
+}
+body { 
+  padding: 0px; 
+  margin: 0px; 
+  border: 0px;
+  font-family: Roboto, sans-serif; 
+  background: blue;
+}
+

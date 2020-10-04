@@ -1,15 +1,38 @@
 
 .background{
 
-    min-height: 97vh;
-    max-height: 97vh;
+    min-height: 65vh;
+    max-height: 65vh;
     background-size: cover;
     margin-top: 0px;
-    background-image: url('src\assets\3561341.jpg');
+    background-image: url(src\assets\2083219.jpg);
 }
-.button 
+.citiLogo
 {
-    margin-top:25%;
-    margin-left:50%;
+    
+
+        position:fixed;
+        right:10px;
+        bottom: 10px 
     
 }
+
+.appLogo {
+    position:fixed;
+    left:10px;
+    top: 10px 
+}
+
+.title{
+    margin-top : 1%;
+    margin-left: 42%;
+    margin-bottom: 0%;
+    border: 0px;
+    font-size: 85px;
+    color :black;
+
+}
+
+.getStarted :{
+    font-size: 2 rem;
+  }
